@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 12:43:18 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/24 14:28:00 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/24 14:32:27 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*plus_flag_str(char *str, t_format *fmt)
 			return (NULL);
 		return (fstr);
 	}
+	return (str);
 }
 
 char	*hash_flag_str(char *str, t_format *fmt)
@@ -53,7 +54,8 @@ char	*hash_flag_str(char *str, t_format *fmt)
 			if (!fstr)
 				return (NULL);
 		}
-		free(str);
+		else
+			free(str);
 		return (fstr);
 	}
 	return (str);
