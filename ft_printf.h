@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 12:26:41 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/24 11:27:08 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/24 14:25:18 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	print_format(t_format *fmt);
 //ft_hex.c
 size_t	ft_uintlen(unsigned int nb, int div);
 char	*get_hexaddr_str(size_t x, char format);
-char	*get_hex_str(unsigned int x, const char *format);
+char	*get_hex_str(unsigned int x, char format);
 
 //ft_type_str.c
 char	*c_type_str(int c);
@@ -61,11 +61,20 @@ char	*x_type_str(size_t	x, char type);
 //utils.c
 size_t	ft_strlen(const char *s);
 int		ft_isdigit(char c);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup(const char *s);
+char	*ft_strjoin_free(char *s1, char *s2);
+
+//utils2.c
+void	*ft_memset(void *s, int c, size_t n);
+void	ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t nmeb, size_t size);
 
 //itoa.c
 char	*ft_itoa(int n);
+
+//atoi.c
+int		ft_atoi(const char *nptr);
 
 //u_type_utils.c
 char	*uint_str(unsigned int d);

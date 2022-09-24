@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:40:43 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/24 02:49:25 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/24 14:24:29 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	k;
@@ -46,6 +46,18 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (*(s2 + i) != '\0')
 		*(str + k++) = *(s2 + i++);
 	*(str + k) = '\0';
+	return (str);
+}
+
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	char	*str;
+
+	str = ft_strjoin(s1, s2);
+	if (!s1)
+		free(s1);
+	if (!s2)
+		free(s2);
 	return (str);
 }
 

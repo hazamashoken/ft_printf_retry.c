@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:26:33 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/24 11:25:53 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/24 12:39:34 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ char	*get_hexaddr_str(size_t x, char format)
 	return (ft_strjoin("0x", res));
 }
 
-char	*get_hex_str(unsigned int x, const char *format)
+char	*get_hex_str(unsigned int x, char format)
 {
 	char	*hex;
 	char	*res;
 	int		i;
 	int		len;
 
-	if (*format == 'x')
+	if (format == 'x')
 		hex = "0123456789abcdef";
 	else
 		hex = "0123456789ABCDEF";

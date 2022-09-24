@@ -1,23 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_type_str2.c                                     :+:      :+:    :+:   */
+/*   ft_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/24 02:54:01 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/24 12:43:16 by tliangso         ###   ########.fr       */
+/*   Created: 2022/09/24 14:15:01 by tliangso          #+#    #+#             */
+/*   Updated: 2022/09/24 14:15:13 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
 
-char	*x_type_str(size_t	x, char type)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	char	*str;
+	size_t	i;
 
-	str = get_hex_str(x, type);
-	if (str == NULL)
-		return (NULL);
-	return (str);
+	i = 0;
+	while (i < n)
+		*(unsigned char *)(s + i++) = (char)(c);
+	return (s);
 }
+
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, 0, n);
+}
+
+void	*ft_calloc(size_t nmeb, size_t size)
+{
+	unsigned char	*ptr;
+
+	if (nmeb >= SIZE_MAX && size >= SIZE_MAX)
+		return (NULL);
+	ptr = (void *)malloc(nmeb * size);
+	if (ptr == NULL)
+		return (NULL);
+	ft_bzero(ptr, nmeb * size);
+	return (ptr);
+}
+
