@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 02:49:44 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/24 02:51:53 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:24:25 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ static int	uint_len(unsigned int d)
 char	*uint_str(unsigned int d)
 {
 	char	*str;
-	int		i;
+	int		len;
 
-	i = 0;
-	str = (char *)malloc(sizeof(char) * uint_len(d) + 1);
+	len = uint_len(d);
+	str = (char *)ft_calloc(sizeof(char), len + 1);
 	if (!str)
 		return (NULL);
-	str[0] = '0';
+	str[len - 1] = '0';
 	while (d > 0)
 	{
-		str[i] = (d % 10) + '0';
+		str[len - 1] = (d % 10) + '0';
 		d = d / 10;
-		i++;
+		len--;
 	}
 	return (str);
 }

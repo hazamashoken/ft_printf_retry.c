@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 12:43:18 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/24 14:32:27 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/26 22:04:53 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,37 @@ char	*hash_flag_str(char *str, t_format *fmt)
 
 char	*format_pcs_str(char *str, t_format *fmt)
 {
+	char	*fstr;
 
+	if (fmt->dot && fmt->precision == 0)
+		fstr = ft_calloc(sizeof(char), 1);
+	else
+		fstr = ft_substr(str, 0, fmt->precision);
+	if (!fstr)
+		return (NULL);
+	free(str);
+	return (fstr);
 }
 
 char	*format_pcs_digit(char *str, t_format *fmt)
 {
+	char	*fstr;
 
+	if (str[0] == '0' && fmt->precision == 0)
+	{
+		fstr = ft_calloc(sizeof(char), fmt->precision + 1);
+		if (!fstr)
+			return (NULL);
+		free(str);
+		return (fstr);
+	}
+	else if (fmt->precision >= ft_strlen(str))
+	{
+		fstr = pcs_digit_operation(str, fmt);
+		if (!fstr)
+			return (NULL);
+		free(str);
+		return (fstr);
+	}
+	return (str);
 }

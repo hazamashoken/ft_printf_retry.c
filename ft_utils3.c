@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_type_str2.c                                     :+:      :+:    :+:   */
+/*   ft_utils3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/24 02:54:01 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/26 23:08:03 by tliangso         ###   ########.fr       */
+/*   Created: 2022/09/25 21:29:13 by tliangso          #+#    #+#             */
+/*   Updated: 2022/09/25 22:37:52 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
 
-char	*x_type_str(unsigned int x, char type)
+void	ft_putchar_fd(char c, int fd)
 {
-	char	*str;
+	if (fd < 0)
+		return ;
+	write(fd, (unsigned char *)&c, 1);
+}
 
-	str = get_hex_str(x, type);
-	if (str == NULL)
-		return (NULL);
-	return (str);
+void	ft_putstr_fd(char *s, int fd)
+{
+	size_t	i;
+
+	if (fd < 0)
+		return ;
+	i = 0;
+	if (s == (void *)0)
+		return ;
+	while (*(unsigned char *)(s + i) != '\0')
+		ft_putchar_fd(*(unsigned char *)(s + i++), fd);
 }

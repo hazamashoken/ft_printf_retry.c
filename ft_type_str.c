@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:17:17 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/24 02:53:33 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:27:43 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*c_type_str(int c)
 {
 	char	*str;
 
-	str = malloc(sizeof(char) * 2);
+	str = ft_calloc(sizeof(char), 2);
 	if (str == NULL)
 		return (NULL);
 	*str = c;
@@ -33,11 +33,11 @@ char	*s_type_str(char *s)
 	return (str);
 }
 
-char	*p_type_str(unsigned long long p)
+char	*p_type_str(size_t p)
 {
 	char	*str;
 
-	str = get_hexaddr(p, 'x');
+	str = get_hexaddr_str(p, 'x');
 	if (str == NULL)
 		return (NULL);
 	return (str);
@@ -53,7 +53,7 @@ char	*d_type_str(int d)
 	return (str);
 }
 
-char	*u_type_str(long int u)
+char	*u_type_str(unsigned int u)
 {
 	char	*str;
 

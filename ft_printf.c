@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 12:31:33 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/23 16:24:36 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/26 22:50:41 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ t_format	*reset_format(t_format *fmt)
 	fmt->is_zero = 0;
 	fmt->percent = 0;
 	fmt->space = 0;
-	fmt->total_len = 0;
+	fmt->hash = 0;
+	fmt->type = 0;
 	return (fmt);
 }
 
@@ -55,15 +56,15 @@ int	check_format(char c, t_format *fmt)
 char	*current_format(t_format *fmt, const char *format, int pos)
 {
 	char	*current_format;
-	size_t	format_len;
-	size_t	i;
+	int		format_len;
+	int		i;
 
 	i = 0;
 	format_len = 0;
-	while (check_format(*(format + pos + format_len), fmt) && fmt->type == 0)
+	while (fmt->type == 0 && check_format(*(format + pos + format_len), fmt))
 		format_len++;
 	if (fmt->type)
-		current_format = (char *)malloc(format_len + 1);
+		current_format = (char *)malloc(format_len + 2);
 	else
 	{
 		reset_format(fmt);
@@ -71,9 +72,9 @@ char	*current_format(t_format *fmt, const char *format, int pos)
 	}
 	if (current_format == NULL)
 		return (NULL);
-	while (i < format_len)
+	while (i < format_len + 1)
 	{
-		*(current_format + i) = *(format + pos + i);
+		*(current_format + i) = *(format + pos + i - 1);
 		i++;
 	}
 	*(current_format + i) = '\0';
@@ -93,6 +94,7 @@ int	ft_eval_format(t_format *fmt, const char *format, int pos)
 	{
 		print_format(fmt);
 		len += ft_strlen(format_str);
+		reset_format(fmt);
 		free(format_str);
 	}
 	else
@@ -105,18 +107,21 @@ int	ft_printf(const char *format, ...)
 	int			i;
 	int			ret;
 	t_format	*tab;
+	int			first;
 
-	tab = (t_format *)malloc(sizeof(t_format));
+	tab = (t_format *)ft_calloc(sizeof(t_format), 1);
 	if (!tab)
 		return (-1);
 	tab = reset_format(tab);
+	tab->total_len = 0;
 	va_start(tab->args, format);
 	i = -1;
 	ret = 0;
+	first = 1;
 	while (*(format + ++i))
 	{
 		if (*(format + i) == '%')
-			i = ft_eval_format(tab, format, i + 1);
+			i += ft_eval_format(tab, format, i + 1) - 1;
 		else
 			ret += write(1, format + i, 1);
 	}

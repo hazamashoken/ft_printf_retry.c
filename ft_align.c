@@ -6,18 +6,88 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 12:43:56 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/24 12:45:02 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/25 21:26:33 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
 
-char	*algin_left(char *str, t_format fmt)
+static int	fill_prefix(char *fstr, int i, int n, t_format *fmt)
 {
-
+	while (i < fmt->width - n)
+	{
+		if (fmt->zero && (!fmt->dot || fmt->precision < 0))
+			fstr[i] = '0';
+		else
+			fstr[i] = ' ';
+		i++;
+	}
+	return (i);
 }
 
-char	*align_right(char *str, t_format fmt)
+int	printlen(char *str)
 {
+	int		n;
 
+	n = ft_strlen(str);
+	if (n == 0)
+		return (1);
+	else
+		return (n);
+}
+
+char	*align_left(char *str, t_format *fmt)
+{
+	char	*fstr;
+	int		i;
+	int		plen;
+
+	i = 0;
+	plen = printlen(str);
+	fstr = ft_calloc(sizeof(char), fmt->width + 1);
+	if (!fstr)
+		return (NULL);
+	if (plen == 1 && (fmt->dot && fmt->precision == 0)
+		&& (*str == '0' || *str == 0))
+		fstr[i++] = ' ';
+	while (i < fmt->width)
+	{
+		if (i < plen && (fmt->type == 's' && *str == 0))
+			fstr[i] = ' ';
+		else if (i < plen)
+			fstr[i] = str[i];
+		else
+			fstr[i] = ' ';
+		i++;
+	}
+	free(str);
+	return (fstr);
+}
+
+char	*align_right(char *str, t_format *fmt)
+{
+	char	*fstr;
+	int		i;
+	int		j;
+	int		plen;
+
+	i = 0;
+	j = 0;
+	fstr = ft_calloc(sizeof(char), fmt->width + 1);
+	plen = printlen(str);
+	if (!fstr)
+		return (NULL);
+	if (str[0] == '-' && (fmt->zero && (!fmt->dot || fmt->precision < 0)))
+	{
+		fstr[i++] = str[j++];
+		fmt->width++;
+	}
+	i = fill_prefix(fstr, i, plen, fmt);
+	if (plen == 1 && (fmt->dot && fmt->precision == 0)
+		&& (*str == '0' || *str == 0))
+		fstr[i++] = ' ';
+	while (j < plen)
+		fstr[i++] = str[j++];
+	free(str);
+	return (fstr);
 }

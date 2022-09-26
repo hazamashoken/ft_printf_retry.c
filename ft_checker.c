@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 02:19:34 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/24 02:55:09 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/27 01:07:19 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ char	*types_checker(t_format *fmt)
 	else if (fmt->type == 's')
 		str = s_type_str(va_arg(fmt->args, char *));
 	else if (fmt->type == 'p')
-		str = p_type_str((unsigned long long)va_arg(fmt->args, void *));
+		str = p_type_str((size_t)va_arg(fmt->args, void *));
 	else if (fmt->type == 'd' || fmt->type == 'i')
 		str = d_type_str(va_arg(fmt->args, int));
 	else if (fmt->type == 'u')
-		str = u_type_str(va_arg(fmt->args, long int));
+		str = u_type_str(va_arg(fmt->args, unsigned int));
 	else if (fmt->type == 'x')
-		str = x_type_str(va_arg(fmt->args, size_t), 'x');
+		str = x_type_str(va_arg(fmt->args, unsigned int), 'x');
 	else if (fmt->type == 'X')
-		str = x_type_str(va_arg(fmt->args, size_t), 'X');
+		str = x_type_str(va_arg(fmt->args, unsigned int), 'X');
 	else if (fmt->type == '%')
 		str = c_type_str('%');
 	else
@@ -89,8 +89,8 @@ void	print_format(t_format *fmt)
 	str = precision_checker(str, fmt);
 	str = width_checker(str, fmt);
 	if (fmt->type == 'c')
-		print_char(str, fmt->width);
+		fmt->total_len += print_char(str, fmt->width);
 	else
-		print_str(str, fmt);
+		fmt->total_len += print_str(str, fmt);
 	free(str);
 }
