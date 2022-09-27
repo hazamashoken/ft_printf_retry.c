@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 12:26:41 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/26 22:51:54 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/27 12:16:09 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include	<stdio.h>
 
 # define FORMAT "cspdiuxX%"
+# define NULL_STR "(null)"
 
 typedef struct s_format
 {

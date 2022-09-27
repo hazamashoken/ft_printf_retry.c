@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 12:43:56 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/25 21:26:33 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/27 14:09:25 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	fill_prefix(char *fstr, int i, int n, t_format *fmt)
 {
-	while (i < fmt->width - n)
+	while (i < fmt->width - n
+		|| (fmt->width == 1 && *fstr == '\0' && fmt->type != 'c'))
 	{
 		if (fmt->zero && (!fmt->dot || fmt->precision < 0))
 			fstr[i] = '0';
@@ -77,16 +78,18 @@ char	*align_right(char *str, t_format *fmt)
 	plen = printlen(str);
 	if (!fstr)
 		return (NULL);
-	if (str[0] == '-' && (fmt->zero && (!fmt->dot || fmt->precision < 0)))
+	if (str && str[0] == '-'
+		&& (fmt->zero && (!fmt->dot || fmt->precision < 0)))
 	{
 		fstr[i++] = str[j++];
 		fmt->width++;
 	}
+	//if (fmt->width == 1 && *fstr == '\0' && fmt->type != 'c')
 	i = fill_prefix(fstr, i, plen, fmt);
 	if (plen == 1 && (fmt->dot && fmt->precision == 0)
 		&& (*str == '0' || *str == 0))
 		fstr[i++] = ' ';
-	while (j < plen)
+	while (str && j < plen)
 		fstr[i++] = str[j++];
 	free(str);
 	return (fstr);

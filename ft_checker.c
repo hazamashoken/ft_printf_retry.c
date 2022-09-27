@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 02:19:34 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/27 01:07:19 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/27 14:25:01 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,24 @@ void	print_format(t_format *fmt)
 	char	*str;
 
 	str = types_checker(fmt);
-	str = flags_checker(str, fmt);
-	str = precision_checker(str, fmt);
-	str = width_checker(str, fmt);
+	if (!str)
+		str = ft_strdup(NULL_STR);
+	if ((!*str && fmt->width == 1 && fmt->dot && !fmt->precision)
+		|| (*str == '0' && fmt->width == 1 && fmt->dot && !fmt->precision))
+	{
+		free(str);
+		str = ft_strdup(" ");
+	}
+	else
+	{
+		str = flags_checker(str, fmt);
+		str = precision_checker(str, fmt);
+		str = width_checker(str, fmt);
+	}
 	if (fmt->type == 'c')
 		fmt->total_len += print_char(str, fmt->width);
+	else if (fmt->type == 's' && !str)
+		fmt->total_len += printf_empty(str, fmt);
 	else
 		fmt->total_len += print_str(str, fmt);
 	free(str);
