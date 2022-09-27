@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 12:43:56 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/27 14:09:25 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/27 14:35:44 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ char	*align_right(char *str, t_format *fmt)
 		fstr[i++] = str[j++];
 		fmt->width++;
 	}
-	//if (fmt->width == 1 && *fstr == '\0' && fmt->type != 'c')
 	i = fill_prefix(fstr, i, plen, fmt);
 	if (plen == 1 && (fmt->dot && fmt->precision == 0)
 		&& (*str == '0' || *str == 0))

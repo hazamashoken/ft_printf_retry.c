@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 12:31:33 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/26 22:50:41 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:24:15 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ t_format	*reset_format(t_format *fmt)
 
 int	check_format(char c, t_format *fmt)
 {
-	if (fmt->dot && ft_isdigit(c))
+	if (star_flag(c, fmt))
+		return (1);
+	else if (fmt->dot && ft_isdigit(c))
 		fmt->precision = (fmt->precision * 10) + (c - '0');
 	else if (ft_istype(c))
 		fmt->type = c;
@@ -98,8 +100,8 @@ int	ft_eval_format(t_format *fmt, const char *format, int pos)
 		free(format_str);
 	}
 	else
-		len = 0;
-	return (len);
+		len = 1;
+	return (len - 1);
 }
 
 int	ft_printf(const char *format, ...)
@@ -121,7 +123,7 @@ int	ft_printf(const char *format, ...)
 	while (*(format + ++i))
 	{
 		if (*(format + i) == '%')
-			i += ft_eval_format(tab, format, i + 1) - 1;
+			i += ft_eval_format(tab, format, i + 1);
 		else
 			ret += write(1, format + i, 1);
 	}

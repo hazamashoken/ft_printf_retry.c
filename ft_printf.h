@@ -6,7 +6,7 @@
 /*   By: tliangso <earth78203@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 12:26:41 by tliangso          #+#    #+#             */
-/*   Updated: 2022/09/27 12:16:09 by tliangso         ###   ########.fr       */
+/*   Updated: 2022/09/27 15:24:06 by tliangso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int		ft_istype(char c);
 //ft_checker.c
 void	print_format(t_format *fmt);
 
+//ft_star.c
+int		star_flag(char c, t_format *fmt);
 //ft_hex.c
 size_t	ft_uintlen(unsigned int nb, int div);
 char	*get_hexaddr_str(size_t x, char format);
